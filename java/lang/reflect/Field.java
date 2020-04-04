@@ -210,7 +210,7 @@ class Field extends AccessibleObject implements Member {
      * Returns a {@code Class} object that identifies the
      * declared type for the field represented by this
      * {@code Field} object.
-     *
+     * 返回一个确定了字段的声明类型的Class对象，表示由本Field对象。
      * @return a {@code Class} object identifying the declared
      * type of the field represented by this object
      */

@@ -70,12 +70,14 @@ public interface Iterator<E> {
     E next();
 
     /**
+     * remove()方法用于删除上次调用next()时所返回的元素。
      * Removes from the underlying collection the last element returned
      * by this iterator (optional operation).  This method can be called
      * only once per call to {@link #next}.  The behavior of an iterator
      * is unspecified if the underlying collection is modified while the
      * iteration is in progress in any way other than by calling this
      * method.
+     * 从底层集合删除最后一个元素返回该迭代器(可选操作).在调用后next方法后，这个方法只能被调用一次。
      *
      * @implSpec
      * The default implementation throws an instance of
@@ -83,11 +85,12 @@ public interface Iterator<E> {
      *
      * @throws UnsupportedOperationException if the {@code remove}
      *         operation is not supported by this iterator
-     *
+     * 如果remove不被重写默认抛出UnsupportedOperationException异常,没有其他操作
      * @throws IllegalStateException if the {@code next} method has not
      *         yet been called, or the {@code remove} method has already
      *         been called after the last call to the {@code next}
      *         method
+     * 如果调用一次next或没有调用，就调用多次remove会抛出 IllegalStateException 异常
      */
     default void remove() {
         throw new UnsupportedOperationException("remove");

@@ -41,11 +41,12 @@ import java.util.function.Consumer;
  *
  * @since 1.5
  * @jls 14.14.2 The enhanced for statement
+ * 这个接口是使用增强for时要到的。要使用增强for循环就必须实现这个接口
  */
 public interface Iterable<T> {
     /**
      * Returns an iterator over elements of type {@code T}.
-     *
+     * 返回一个T类型的迭代器
      * @return an Iterator.
      */
     Iterator<T> iterator();
@@ -57,7 +58,9 @@ public interface Iterable<T> {
      * actions are performed in the order of iteration (if an iteration order
      * is specified).  Exceptions thrown by the action are relayed to the
      * caller.
-     *
+     * 执行用于每个元件的给定动作Iterable直到所有元素都已经被处理或动作抛出异常。
+     * 除非实现类另有说明，操作是在迭代的顺序执行（如果指定的迭代顺序）。
+     * 由动作抛出的异常被转达给呼叫者
      * @implSpec
      * <p>The default implementation behaves as if:
      * <pre>{@code
@@ -65,11 +68,14 @@ public interface Iterable<T> {
      *         action.accept(t);
      * }</pre>
      *
-     * @param action The action to be performed for each element
+     * @param action The action to be performed for each element 每一个元素要执行的action
      * @throws NullPointerException if the specified action is null
      * @since 1.8
+     *
+     * void accept(T t); accept执行操作，没有返回值 这也是策略设计模式的体现
      */
     default void forEach(Consumer<? super T> action) {
+        // 空对象校验，如果未空，抛出异常
         Objects.requireNonNull(action);
         for (T t : this) {
             action.accept(t);

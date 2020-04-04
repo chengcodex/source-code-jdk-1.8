@@ -635,6 +635,13 @@ public class Proxy implements java.io.Serializable {
 
             /*
              * Generate the specified proxy class.
+             * 在jdk1.8 ProxyGenerator类是在sun.misc.ProxyGenrator
+             * 在jdk11中是在 jdk.proxy.ProxyGenerator.saveGeneratedFiles
+             * 在1.8中ProxyGenerator类中有属性
+             * private static final boolean saveGeneratedFiles = (Boolean)AccessController.doPrivileged(new GetBooleanAction("sun.misc.ProxyGenerator.saveGeneratedFiles"));
+             * 因此要设置生成的代理文件分别为
+             * System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
+             * System.getProperties().put("jdk.proxy.ProxyGenerator.saveGeneratedFiles","true");
              */
             byte[] proxyClassFile = ProxyGenerator.generateProxyClass(
                 proxyName, interfaces, accessFlags);
@@ -705,8 +712,10 @@ public class Proxy implements java.io.Serializable {
                                           InvocationHandler h)
         throws IllegalArgumentException
     {
+        //非空检查
         Objects.requireNonNull(h);
 
+        //安全检查
         final Class<?>[] intfs = interfaces.clone();
         final SecurityManager sm = System.getSecurityManager();
         if (sm != null) {

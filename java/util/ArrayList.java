@@ -842,6 +842,7 @@ public class ArrayList<E> extends AbstractList<E>
 
     /**
      * An optimized version of AbstractList.Itr
+     * 一个优化版的AbstractList.Itr
      */
     private class Itr implements Iterator<E> {
         int cursor;       // index of next element to return
@@ -901,6 +902,7 @@ public class ArrayList<E> extends AbstractList<E>
             // update once at end of iteration to reduce heap write traffic
             cursor = i;
             lastRet = i - 1;
+            //检查是否被修改
             checkForComodification();
         }
 
@@ -912,6 +914,7 @@ public class ArrayList<E> extends AbstractList<E>
 
     /**
      * An optimized version of AbstractList.ListItr
+     * 提供双向遍历，可以perivious
      */
     private class ListItr extends Itr implements ListIterator<E> {
         ListItr(int index) {
